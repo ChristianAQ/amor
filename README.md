@@ -29,12 +29,16 @@ e imita tus saltos.
 
 ## Publicar en GitHub Pages
 
-El repositorio ya incluye el flujo de trabajo `.github/workflows/deploy-pages.yml`.
-Solo hay que activarlo una vez:
+El repositorio ya incluye el flujo de trabajo `.github/workflows/deploy-pages.yml`,
+pero GitHub **no deja que una acción active Pages por primera vez** (hace falta un
+permiso que el token automático no tiene). Es un único clic manual:
 
 1. Ve a **Settings → Pages** del repositorio.
-2. En **Source**, elige **GitHub Actions**.
-3. Haz push de esta rama (o fusiónala a `main`). La acción se ejecuta sola.
+2. En **Source**, elige **GitHub Actions** y guarda.
+3. Ve a **Actions → Desplegar en GitHub Pages** y pulsa **Re-run jobs**
+   en la última ejecución (o haz cualquier push).
+
+A partir de ahí, cada push a esta rama vuelve a publicar el juego solo.
 
 El juego quedará publicado en:
 
