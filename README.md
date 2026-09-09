@@ -13,7 +13,7 @@ e imita tus saltos.
 ---
 
 ## Cómo se juega
-
+ 
 | | Saltar | Agacharse |
 |---|---|---|
 | **Móvil** | toca la **mitad derecha** de la pantalla (o el botón ▲) | toca la **mitad izquierda** (o el botón ▼) |
