@@ -1,0 +1,198 @@
+:root{
+  --ink:#f6f1ff;
+  --bg:#14111f;
+  --bg2:#1e1930;
+  --gold:#ffd97a;
+  --rose:#ff6b8a;
+  --green:#5fd08a;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  margin:0;
+  background:radial-gradient(circle at 50% 0%,#2a2140 0%,var(--bg) 70%);
+  color:var(--ink);
+  font-family:'Press Start 2P',ui-monospace,monospace;
+  display:flex;align-items:center;justify-content:center;
+  padding:10px;
+  overflow:hidden;
+  overscroll-behavior:none;
+  touch-action:manipulation;
+}
+#wrap{
+  width:100%;
+  max-width:980px;
+  /* el escenario nunca debe sobrepasar el alto de la pantalla */
+  max-width:min(980px, calc((100vh - 96px) * 16 / 9));
+  max-width:min(980px, calc((100dvh - 96px) * 16 / 9));
+}
+
+#stage{
+  position:relative;
+  width:100%;
+  aspect-ratio:16/9;
+  border:3px solid #3a3157;
+  border-radius:6px;
+  overflow:hidden;
+  background:#000;
+  box-shadow:0 12px 40px rgba(0,0,0,.55), inset 0 0 0 3px #171327;
+  touch-action:none;
+}
+#game{
+  display:block;width:100%;height:100%;
+  image-rendering:pixelated;
+  image-rendering:crisp-edges;
+}
+
+/* ---------- pantallas ---------- */
+.screen{
+  position:fixed;inset:0;z-index:30;
+  display:none;
+  align-items:center;justify-content:center;
+  padding:12px;
+  background:rgba(14,11,26,.72);
+  backdrop-filter:blur(2px);
+  overflow:auto;
+}
+.screen.show{display:flex}
+.panel{
+  width:min(100%,560px);
+  max-height:94vh;overflow:auto;
+  background:linear-gradient(180deg,#241d3a,#1a1529);
+  border:3px solid #4a3f70;
+  border-radius:8px;
+  padding:16px;
+  text-align:center;
+  box-shadow:0 0 0 3px #171327, 0 10px 30px rgba(0,0,0,.5);
+}
+.panel.wide{width:min(100%,640px)}
+h1{
+  font-size:clamp(11px,3.1vw,18px);
+  margin:2px 0 8px;
+  color:var(--gold);
+  line-height:1.5;
+  text-shadow:0 3px 0 #6b3a1f;
+}
+h1.good{color:var(--green);text-shadow:0 3px 0 #1f5a37}
+h1.bad{color:var(--rose);text-shadow:0 3px 0 #6b1f33}
+.tag{font-size:clamp(7px,2vw,9px);color:#c9bfe4;margin:0 0 12px;line-height:1.8}
+.pick{font-size:clamp(8px,2.2vw,10px);color:#fff;margin:6px 0 10px}
+
+.chars{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.char{
+  background:#1b1630;
+  border:3px solid #4a3f70;
+  border-radius:6px;
+  padding:8px 10px 10px;
+  color:var(--ink);
+  font-family:inherit;
+  font-size:clamp(7px,1.9vw,9px);
+  cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  transition:transform .08s, border-color .12s, background .12s;
+}
+.char canvas{image-rendering:pixelated;width:64px;height:74px}
+.char:hover,.char:focus-visible{border-color:var(--gold);background:#2a2244;transform:translateY(-3px);outline:none}
+.char:active{transform:translateY(0)}
+
+.hint{font-size:clamp(6px,1.8vw,8px);color:#a99fd0;margin:12px 0 6px;line-height:1.9}
+.how{display:flex;flex-direction:column;gap:6px;margin-top:8px;
+  font-size:clamp(6px,1.7vw,8px);color:#8f86b8;line-height:1.9}
+.how b{color:var(--gold)}
+
+.stats{font-size:clamp(6px,1.8vw,8px);color:#d7cff0;margin:6px 0 10px;line-height:2}
+.stats b{color:var(--gold)}
+.letter{font-size:clamp(7px,1.9vw,9px);color:#ffd9e2;line-height:2.1;margin:8px 0 12px}
+.letter b{color:var(--rose)}
+.best{font-size:7px;color:#8f86b8;margin:10px 0 0}
+
+.memories{
+  list-style:none;padding:0;margin:8px 0 0;
+  text-align:left;max-height:26vh;overflow:auto;
+  border-top:2px solid #3a3157;border-bottom:2px solid #3a3157;
+}
+.memories li{font-size:clamp(6px,1.6vw,7px);color:#bdb3e0;padding:7px 4px;line-height:1.9;
+  border-bottom:1px solid #2b2444}
+.memories li:last-child{border-bottom:none}
+.memories span{color:var(--gold);display:block;margin-bottom:3px}
+
+.btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.btn{
+  font-family:inherit;font-size:clamp(7px,2vw,9px);
+  padding:12px 16px;border-radius:6px;cursor:pointer;
+  background:var(--gold);color:#2a1a08;border:3px solid #b8913f;
+  box-shadow:0 4px 0 #7d5f22;
+  transition:transform .06s, box-shadow .06s;
+}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 #7d5f22}
+.btn.ghost{background:#2a2244;color:var(--ink);border-color:#4a3f70;box-shadow:0 4px 0 #241d3a}
+.btn.ghost:active{box-shadow:0 1px 0 #241d3a}
+
+/* ---------- controles tactiles ---------- */
+#touch{
+  position:absolute;left:0;right:0;bottom:0;
+  display:none;justify-content:space-between;
+  padding:10px 12px 12px;
+  pointer-events:none;
+}
+#touch.show{display:flex}
+#touch button{
+  pointer-events:auto;
+  width:clamp(54px,13vw,76px);height:clamp(54px,13vw,76px);
+  border-radius:50%;
+  border:3px solid rgba(255,255,255,.35);
+  background:rgba(20,16,34,.42);
+  color:rgba(255,255,255,.85);
+  font-size:clamp(14px,3.6vw,20px);
+  font-family:inherit;
+  cursor:pointer;
+  transition:transform .06s, background .1s;
+}
+#touch button.on{background:rgba(255,217,122,.55);transform:scale(.92)}
+
+#btn-sound{
+  position:absolute;bottom:10px;left:50%;transform:translateX(-50%);
+  font-family:inherit;font-size:8px;
+  padding:7px 9px;border-radius:5px;
+  background:rgba(20,16,34,.6);color:#e9e2ff;
+  border:2px solid rgba(255,255,255,.28);
+  cursor:pointer;z-index:5;
+}
+
+.foot{
+  text-align:center;font-size:clamp(5px,1.5vw,7px);
+  color:#6f6690;margin:12px 0 0;line-height:2;
+}
+
+/* pantallas bajas (movil en horizontal) */
+@media (max-height:520px){
+  body{padding:4px}
+  #wrap{max-width:min(980px, calc((100dvh - 26px) * 16 / 9))}
+  .foot{display:none}
+  #touch button{width:clamp(44px,10vh,64px);height:clamp(44px,10vh,64px);font-size:16px}
+}
+@media (orientation:portrait) and (max-width:760px){
+  #touch{padding:6px 8px 8px}
+  #touch button{width:46px;height:46px;font-size:14px}
+  #btn-sound{font-size:7px;padding:5px 7px;bottom:6px}
+}
+
+@media (max-width:520px){
+  body{padding:6px}
+  .panel{padding:12px 10px}
+  .memories{max-height:22vh}
+}
+@media (orientation:portrait) and (max-width:760px){
+  .foot{display:none}
+}
+
+
+/* aviso para movil en vertical */
+#rotate{
+  display:none;
+  text-align:center;font-size:7px;color:var(--gold);
+  margin:10px 0 0;line-height:2;
+}
+@media (orientation:portrait) and (max-width:760px){
+  #rotate{display:block}
+}

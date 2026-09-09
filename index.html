@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Llegamos tarde a la cita — Christian &amp; Melissa</title>
+<meta name="description" content="Un mini juego de pixel art: corre por nueve de nuestros recuerdos y llega a tiempo a la cita.">
+<meta name="theme-color" content="#171327">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='14' font-size='14'>❤️</text></svg>">
+</head>
+<body>
+
+<div id="wrap">
+  <div id="stage">
+    <canvas id="game" width="480" height="270"></canvas>
+
+    <!-- ====== PANTALLA DE INICIO / ELECCION ====== -->
+    <div class="screen" id="screen-title">
+      <div class="panel">
+        <h1>LLEGAMOS TARDE</h1>
+        <p class="tag">a nuestra cita · un viaje por 9 recuerdos</p>
+        <p class="pick">¿A quién quieres llevar?</p>
+        <div class="chars">
+          <button class="char" data-hero="christian">
+            <canvas id="pic-christian" width="80" height="92"></canvas>
+            <span>CHRISTIAN</span>
+          </button>
+          <button class="char" data-hero="melissa">
+            <canvas id="pic-melissa" width="80" height="92"></canvas>
+            <span>MELISSA</span>
+          </button>
+        </div>
+        <p class="hint">El otro te acompaña siempre. Elige y corre.</p>
+        <div class="how">
+          <span><b>MÓVIL</b> toca la derecha para saltar · la izquierda para agacharte</span>
+          <span><b>PC</b> ESPACIO / ↑ saltar · ↓ agacharse · M silencio</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== DERROTA ====== -->
+    <div class="screen" id="screen-over">
+      <div class="panel">
+        <h1 class="bad">LLEGASTEIS TARDE...</h1>
+        <p class="tag">Pero ella os guardó la mesa.</p>
+        <p id="over-stats" class="stats"></p>
+        <div class="btns">
+          <button class="btn" data-retry>OTRA VEZ</button>
+          <button class="btn ghost" data-menu>CAMBIAR</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== VICTORIA ====== -->
+    <div class="screen" id="screen-win">
+      <div class="panel wide">
+        <h1 class="good">¡LLEGASTEIS A TIEMPO!</h1>
+        <p id="win-stats" class="stats"></p>
+        <p class="letter">Nueve países, mil recuerdos y siempre la misma conclusión:
+          contigo hasta llegar tarde merece la pena. <b>Feliz cita, Melissa.</b> ❤</p>
+        <ul id="win-memories" class="memories"></ul>
+        <p id="win-best" class="best"></p>
+        <div class="btns">
+          <button class="btn" data-retry>JUGAR OTRA VEZ</button>
+          <button class="btn ghost" data-menu>MENÚ</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== CONTROLES TACTILES ====== -->
+    <div id="touch">
+      <button id="btn-duck" aria-label="Agacharse">▼</button>
+      <button id="btn-jump" aria-label="Saltar">▲</button>
+    </div>
+    <button id="btn-sound" aria-label="Sonido">♪ ON</button>
+  </div>
+
+  <p id="rotate">↻ Gira el móvil para jugar en grande</p>
+  <p class="foot">Hecho con ❤ · Egipto → Londres → Rumanía → Ecuador → México → Italia → París → Marruecos → Madrid</p>
+</div>
+
+<script src="assets/js/sprites.js"></script>
+<script src="assets/js/scenes.js"></script>
+<script src="assets/js/game.js"></script>
+</body>
+</html>
